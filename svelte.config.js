@@ -14,7 +14,9 @@ const config = {
 	],
 
 	kit: {
-		adapter: adapter(),
+		adapter: adapter({
+			pages: "./_site"
+		}),
 		alias: {
 			'lib/*': 'src/lib/*'
 		}
