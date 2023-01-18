@@ -46,6 +46,10 @@ select {
 	border-color: var(--input-border-color);
 }
 
+input[type="range"] {
+	accent-color: var(--button-color)
+}
+
 .file-upload-wrapper {
 	@apply flex items-center justify-center;
 }

@@ -5,15 +5,21 @@
 	import airports from '$lib/airports';
 	import FlightTable from 'lib/FlightTable.svelte';
 	import Box from 'lib/Box.svelte';
+	import DepartureApproachRatio from 'lib/DepartureApproachRatio.svelte';
 
 	let icaoCode: string;
 	let numberOfFlights: number;
+	let departureRatio: number;
 
 	let departures: ScheduleEntry[] = [];
 	let arrivals: ScheduleEntry[] = [];
 	const defaultCsvHeader = 'Airline,Flight Number,Arrival Airport,Departure Airport,';
 
 	function generateSchedules() {
+		arrivals = [];
+		departures = [];
+
+		const departureFlights = numberOfFlights * departureRatio;
 		for (let i = 0; i < numberOfFlights; i++) {
 			let airline = airlines[Math.floor(Math.random() * airlines.length)];
 			let flightNumber = Math.floor(Math.random() * (9999 - 10 + 1) + 10);
@@ -22,12 +28,27 @@
 			let departureTime = generateRandomTime();
 			let arrivalTime = generateRandomTime();
 
-			departures.push(
-				new ScheduleEntry(airline, flightNumber, departureAirport, arrivalAirport, departureTime)
-			);
-			arrivals.push(
-				new ScheduleEntry(airline, flightNumber, departureAirport, arrivalAirport, arrivalTime)
-			);
+			if (i < departureFlights) {
+				departures.push(
+					new ScheduleEntry(
+						airline.icao,
+						flightNumber,
+						departureAirport,
+						arrivalAirport.icao,
+						departureTime
+					)
+				);
+			} else {
+				arrivals.push(
+					new ScheduleEntry(
+						airline.icao,
+						flightNumber,
+						arrivalAirport.icao,
+						departureAirport,
+						arrivalTime
+					)
+				);
+			}
 		}
 
 		departures = departures;
@@ -97,6 +118,9 @@
 <div class="flex justify-between gap-2 mb-2">
 	<Input text="ICAO" bind:value={icaoCode} />
 	<Input text="Number of Flights" bind:value={numberOfFlights} isNumber={true} />
+</div>
+<div class="mb-2">
+	<DepartureApproachRatio bind:value={departureRatio} />
 </div>
 <div class="flex justify-betweens gap-2 mb-2">
 	<button type="button" class="button is-primary w-full" on:click={generateSchedules}
