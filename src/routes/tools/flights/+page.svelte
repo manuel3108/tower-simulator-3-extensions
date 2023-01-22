@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 	import Input from 'lib/Input.svelte';
 	import ScheduleEntry from 'lib/ScheduleEntry';
 	import airlines from '$lib/airlines';
@@ -140,4 +140,4 @@
 </Box>
 <Box title="Departures">
 	<FlightTable flights={departures} />
-</Box>
+</Box> -->
