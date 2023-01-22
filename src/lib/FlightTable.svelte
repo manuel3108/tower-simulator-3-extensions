@@ -4,7 +4,7 @@
 	export let flights: ScheduleEntry[];
 </script>
 
-<table class="mb-2">
+<table class="mb-2 dark">
 	<thead>
 		<tr>
 			<th>Airline</th>
@@ -30,22 +30,3 @@
 		{/each}
 	</tbody>
 </table>
-
-<style>
-	table {
-		border-collapse: collapse;
-		border-spacing: 0;
-		width: 100%;
-		border: 1px solid #ddd;
-	}
-
-	th,
-	td {
-		text-align: center;
-		padding: 5px;
-	}
-
-	tbody tr:nth-child(odd) {
-		background-color: var(--dark-grey);
-	}
-</style>
